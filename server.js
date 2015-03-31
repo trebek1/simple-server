@@ -1,37 +1,44 @@
-// Use require to get access to the Node
-// http library and store it in a variable.
-var http = require("http");
 
-// Define a function doStuff that take in two
-// parameters, one for the request called req,
-// and one for the response called res.
 
-var doStuff = function(req, res) {
+var express = require('express');
 
-  // Writes the Head of the response with status
-  // code 200, specifying that the request is OK,
-  // and the body of the response will be given
-  // in plain text
+var app = express();
 
-  res.writeHead(200, {"Content-Type": "text/plain"});
 
-  // Writes the body of the response with the content
-  // 'Hello World'
+app.get('/', function(req, res) {
+   res.send(" For multiplication use /mult/:x/:y for addition use /add/:x/:y for subtraction use /sub/:x/:y and for division use /div/:x/:y where :x and :y are replaced with numbers") // Your HTML would go here. 
+});
 
-  res.write("Hello World");
+app.get('/add/:x/:y', function(req,res){
+   var n1 = Number(req.params.x);  
+   var n2 = Number(req.params.y); 
+   var sum = n1 + n2; 
+  res.send(String(sum))
+}); 
 
-  // Send the response back
+app.get('/mult/:x/:y', function(req,res){
+   var n1 = Number(req.params.x);  
+   var n2 = Number(req.params.y); 
+   var sum = n1*n2; 
+  res.send(String(sum))
+}); 
 
-  res.end();
-};
+app.get('/div/:x/:y', function(req,res){
+   var n1 = Number(req.params.x);  
+   var n2 = Number(req.params.y); 
+   var sum = n1/n2; 
+  res.send(String(sum))
+}); 
 
-// Creates a server with the doStuff function
-// that will respond to requests and send responses
-// as specified.
+app.get('/sub/:x/:y', function(req,res){
+   var n1 = Number(req.params.x);  
+   var n2 = Number(req.params.y); 
+   var sum = n1 - n2; 
+  res.send(String(sum))
+}); 
 
-var server = http.createServer(doStuff);
 
-// Tell the server to start listening for request on
-// port 3000
+// Tell the app to start listening for
+// requests on port 3000.
 
-server.listen(3000);
+app.listen(3000);
